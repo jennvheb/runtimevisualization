@@ -19,4 +19,4 @@ This  implements a real-time visualization system for sensor data streams in a m
 7. In the url after 'shift=' enter the tool shift in milliseconds you want to configure. Values around 8291084 are recommended. This will shift the timestamps of the Tools in the instance back so they are closer to the data points of the MaxxTurm45/Axes/Power/Active/[...] and can be displayed together in the graphs.
 8. In the url after 'instance=' enter the instance you have started in the CPEE
 - Optional: In the url after 'compareto=' enter the other instance you have started in the CPEE. This is not possible for the combined.html for visibility reasons.
-9. Done!
+9. Done! There might be a waiting time of several minutes depending on the data provider. You can go back to the overview anytime and click on other graphs. The selected instance(s) and tool shift are saved via SessionStorage. The already emitted data is also persisted.
