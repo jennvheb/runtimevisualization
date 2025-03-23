@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combined SSE Data Stream</title>
+  <style>
+    body {
+      font-family: Arial;
+    }
+    .container {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    #gr-canvas {
+      width: 800px;
+      height: 600px;
+      margin-left: 50px;
+    }
+    .info-panel {
+      width: 250px;
+      padding: 15px;
+    }
+    .info-panel p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+<h1>Combined Graphs</h1>
+<p>Current Instance: <strong id="currentInstance">Loading...</strong></p>
+<p>Current Shift Value in Milliseconds for Tools: <strong id="currentShift">Loading...</strong></p>
+<div class="container">
+  <canvas id="gr-canvas" width="800" height="600"></canvas>
+  <div class="info-panel">
+    <h2>Active Tool Information</h2>
+    <p><strong>Tool Identifier:</strong> <span id="actToolIdent">Waiting for data...</span></p>
+    <p><strong>Tool Number:</strong> <span id="actTNumber">Waiting for data...</span></p>
+    <p><strong>Tool Length:</strong> <span id="actToolLength1">Waiting for data...</span></p>
+    <p><strong>Tool Radius:</strong> <span id="actToolRadius">Waiting for data...</span></p>
+    <h2>Past Tool Information</h2>
+    <ul id="pastToolList" style="list-style: none; padding: 0; font-size: 14px;"></ul>
+  </div>
+</div>
+<script>
+  let urlParams = new URLSearchParams(window.location.search);
+  let instance = urlParams.get('instance') || sessionStorage.getItem('instance') || '';
+  let shift = urlParams.get('shift') || sessionStorage.getItem('shift') || '0'; // 0 as string
+  sessionStorage.setItem('instance', instance);
+  sessionStorage.setItem('shift', shift);
+
+  if (!urlParams.get('instance')) {
+    urlParams.set('instance', instance);
+  }
+  if (!urlParams.get('shift')) {
+    urlParams.set('shift', shift);
+  }
+  window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+  document.getElementById("currentInstance").textContent = instance;
+  document.getElementById("currentShift").textContent = shift;
+</script>
+
+<script src="gr.js"></script>
+<script src="app.js"></script>
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; gap: 4px;">
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 1px; width: 30px; background-color: mediumorchid; margin-right: 8px;">
+    <p style="margin: 0;">MaxxTurn45/Axes/Power/Active/A</p>
+  </div>
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 1px; width: 30px; background-color: lightgreen; margin-right: 8px;">
+    <p style="margin: 0;">MaxxTurn45/Axes/Power/Active/B</p>
+  </div>
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 1px; width: 30px; background-color: blue; margin-right: 8px;">
+    <p style="margin: 0;">MaxxTurn45/Axes/Power/Active/C</p>
+  </div>
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 1px; width: 30px; background-color: orange; margin-right: 8px;">
+    <p style="margin: 0;">MaxxTurn45/Axes/Power/Active/Sum</p>
+  </div>
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 1px; width: 30px; background-color: red; margin-right: 8px;">
+    <p style="margin: 0;">Tool Change</p>
+  </div>
+</div>
+<div style="display: flex; padding-bottom: 20px; padding-top: 20px; flex-direction: column; align-items: flex-start; width: 100%; gap: 4px;">
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <a href="index.html">Back to the overview</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaxxTurn45/Axes/Power/Active/A</title>
+  <style>
+    body {
+      font-family: Arial;
+    }
+    .container {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    #gr-canvas {
+      width: 800px;
+      height: 600px;
+      margin-left: 50px;
+    }
+    .info-panel {
+      width: 250px;
+      padding: 15px;
+    }
+    .info-panel p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+<h1>Graph for MaxxTurn45/Axes/Power/Active/A</h1>
+<p>Current Instance: <strong id="currentInstance">Loading...</strong></p>
+<p id="comparedToInstance" style="display: none;">Compared to Instance: <strong id="compareto">Loading...</strong></p>
+<p>Current Shift Value in Milliseconds for Tools: <strong id="currentShift">Loading...</strong></p>
+<div class="container">
+  <canvas id="gr-canvas" width="800" height="600"></canvas>
+  <div class="info-container" style="display: flex; gap: 20px;">
+    <div class="info-panel">
+      <h2>Active Tool Information</h2>
+      <p><strong>Tool Identifier:</strong> <span id="actToolIdent">Waiting for data...</span></p>
+      <p><strong>Tool Number:</strong> <span id="actTNumber">Waiting for data...</span></p>
+      <p><strong>Tool Length:</strong> <span id="actToolLength1">Waiting for data...</span></p>
+      <p><strong>Tool Radius:</strong> <span id="actToolRadius">Waiting for data...</span></p>
+      <h2>Past Tool Information</h2>
+      <ul id="pastToolList" style="list-style: none; padding: 0; font-size: 14px;"></ul>
+    </div>
+    <div id="comparetoInfo" class="info-panel" style="display: none;">
+      <h2>Compared Instance Tool Information</h2>
+      <p><strong>Tool Identifier:</strong> <span id="actToolIdentCompareTo">Waiting...</span></p>
+      <p><strong>Tool Number:</strong> <span id="actTNumberCompareTo">Waiting...</span></p>
+      <p><strong>Tool Length:</strong> <span id="actToolLength1CompareTo">Waiting...</span></p>
+      <p><strong>Tool Radius:</strong> <span id="actToolRadiusCompareTo">Waiting...</span></p>
+      <h2>Past Tool Information</h2>
+      <ul id="pastToolListCompareTo" style="list-style: none; padding: 0; font-size: 14px;"></ul>
+  </div>
+  </div>
+</div>
+<script>
+  let urlParams = new URLSearchParams(window.location.search);
+  // get the parameter from the url or from sessionStorage -> makes it possible to leave and return the page without having to reenter the parameter
+  let instance = urlParams.get('instance') || sessionStorage.getItem('instance') || '';
+  let compareto = urlParams.get('compareto') || sessionStorage.getItem('compareto') || '';
+  let shift = urlParams.get('shift') || sessionStorage.getItem('shift') || '0';
+  if (compareto === '0') {
+    compareto = ''; // if 0 is entered force clear
+  }
+
+  sessionStorage.setItem('instance', instance);
+  sessionStorage.setItem('compareto', compareto !== '0' ? compareto : ''); // force clear in sessionStorage as well if 0 is entered, else set the value provided
+  sessionStorage.setItem('shift', shift);
+
+  // also set the url from value stored in the session storage if no parameter has been provided
+  if (!urlParams.get('instance')) {
+    urlParams.set('instance', instance);
+  }
+  if (!urlParams.get('compareto')) {
+    urlParams.set('compareto', compareto);
+  }
+  if (!urlParams.get('shift')) {
+    urlParams.set('shift', shift);
+  }
+  window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+  const eventName = "MaxxTurn45/Axes/Power/Active/A";
+  document.getElementById("currentInstance").textContent = instance;
+  document.getElementById("currentShift").textContent = shift;
+  document.getElementById("compareto").textContent = compareto;
+
+  document.addEventListener("DOMContentLoaded", function() {
+    let comparetoInfo = document.getElementById("comparetoInfo");
+    let comparetoLegend = document.getElementById("comparetoLegend");
+    let comparedToInstance = document.getElementById("comparedToInstance");
+
+    if (comparetoInfo && comparetoLegend && comparedToInstance) {
+      if (!compareto) {
+        comparetoInfo.style.display = "none";
+        comparetoLegend.style.display = "none";
+        comparedToInstance.style.display = "none";
+      } else {
+        comparetoInfo.style.display = "block";
+        comparetoLegend.style.display = "flex";
+        comparedToInstance.style.display = "block";
+      }
+    }
+  });
+</script>
+  <script src="gr.js"></script>
+<script src="app_individual.js"></script>
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; gap: 4px;">
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 2px; width: 30px; background-color: blue; margin-right: 8px;">
+    <p style="margin: 0;">Current Instance</p>
+  </div>
+  <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <hr style="border: none; height: 2px; width: 30px; background-color: lightblue; margin-right: 8px;">
+    <p style="margin: 0;">Current Instance Tool Change</p>
+  </div>
+</div>
+  <div id="comparetoLegend" style="display: none; flex-direction: column; align-items: flex-start; width: 100%; gap: 4px;">
+    <div style="display: flex; justify-content: flex-start; align-items: center;">
+      <hr style="border: none; height: 2px; width: 30px; background-color: darkgreen; margin-right: 8px;">
+      <p style="margin: 0;">Compared Instance</p>
+    </div>
+    <div style="display: flex; justify-content: flex-start; align-items: center;">
+      <hr style="border: none; height: 2px; width: 30px; background-color: lightgreen; margin-right: 8px;">
+      <p style="margin: 0;">Compared Instance Tool Change</p>
+    </div>
+  </div>
+    <div style="display: flex; padding-bottom: 20px; padding-top: 20px; flex-direction: column; align-items: flex-start; width: 100%; gap: 4px;">
+    <div style="display: flex; justify-content: flex-start; align-items: center;">
+    <a href="index.html">Back to the overview</a>
+  </div>
+  </div>
+</body>
+</html>

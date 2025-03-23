@@ -1,0 +1,10 @@
+{
+  "name": "prakws24",
+  "version": "1.0.0",
+  "dependencies": {
+    "eventsource": "^3.0.5",
+    "express": "^4.21.2",
+    "gr": "^0.0.1",
+    "multer": "^1.4.5-lts.1"
+  }
+}
