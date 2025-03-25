@@ -20,3 +20,7 @@ This  implements a real-time visualization system for sensor data streams in a m
 8. In the url after 'instance=' enter the instance you have started in the CPEE
 - Optional: In the url after 'compareto=' enter the other instance you have started in the CPEE. If you decide to not compare instances anymore after already having entered an instance after "compareto=" replace that instance with 0 to force clear. This is not possible for the combined.html.
 9. Done! There might be a short waiting time depending on the data provider. You can go back to the overview anytime and click on other graphs without having to worry about lost data. The selected instance(s), tool shift and already emitted data are persisted.
+
+## Credits
+The application is a project of the lab "Advanced Practical Course - Run-Time Data Visualization for Business Processes" at the Technical University Munich.
+The data streams run in the CPEE are owned by the Chair of Information Systems and Business Process Management at the Technical University of Munich.
