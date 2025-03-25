@@ -145,6 +145,9 @@ GR.ready(function() {
         let pastToolList = document.getElementById("pastToolList");
         pastToolList.innerHTML = "";
 
+        // sort timestamps in descending order if the server mixes them up
+        pastToolChanges.sort((a, b) => b.timestamp - a.timestamp);
+
         pastToolChanges.forEach(toolChange => {
             let listItem = document.createElement("li");
             listItem.innerHTML = `ID: <strong>${toolChange.tool}</strong> - 
@@ -207,6 +210,8 @@ GR.ready(function() {
         function updatePastToolListCompareTo() {
             let pastToolList = document.getElementById("pastToolListCompareTo");
             pastToolList.innerHTML = "";
+
+            pastToolChangesCompareTo.sort((a, b) => b.timestamp - a.timestamp);
 
             pastToolChangesCompareTo.forEach(toolChange => {
                 let listItem = document.createElement("li");

@@ -28,6 +28,7 @@ app.post('/', upload.any(), (req, res) => {
                 instanceData[instance] = { toolChanges: [], pastToolChanges: {}, firstTimestamp: null, latestToolState: {}, pendingToolChange: null };
             }
             if (jsonData.datastream && Array.isArray(jsonData.datastream)) { // if JSON payload contains a datastream, loop over each data point
+                console.log('[DEBUG] datastream contents:', JSON.stringify(jsonData.datastream));
                 jsonData.datastream.forEach(entry => {
                     if (entry["stream:point"]) {
                         const dataPoint = entry["stream:point"];
@@ -109,11 +110,6 @@ app.post('/', upload.any(), (req, res) => {
                                         const lastToolChange = instanceData[instance].toolChanges.at(-1); // get last saved tool change
 
                                         if (lastToolChange) {
-                                       /*     // attach tool info to id in the toolchange array: retroactively overwrite with info if previous save didn't have full info
-                                            // this is safe
-                                            lastToolChange.tNumber = lastToolChange.tNumber || latestToolState.actTNumber || null;
-                                            lastToolChange.toolLength1 = lastToolChange.toolLength1 || latestToolState.actToolLength1 || null;
-                                            lastToolChange.toolRadius = lastToolChange.toolRadius || latestToolState.actToolRadius || null;**/
                                             if (!instanceData[instance].pastToolChanges[lastToolChange.tool]) {
                                                 instanceData[instance].pastToolChanges[lastToolChange.tool] = [];
                                             }
@@ -166,7 +162,7 @@ app.get('/sse', (req, res) => {
         res.write(`data: ${JSON.stringify(data)}\n\n`);
     };
 
-    // replay existing data so clients get full history when he (re-)connects
+    // replay existing data so clients get full history when they (re-)connect
     if (instanceData[instance]) {
         // replay data points
         Object.keys(instanceData[instance]).forEach(id => {

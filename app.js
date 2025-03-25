@@ -159,6 +159,8 @@ GR.ready(function() {
         let pastToolList = document.getElementById("pastToolList");
         pastToolList.innerHTML = "";
 
+        pastToolChanges.sort((a, b) => b.timestamp - a.timestamp);
+
         pastToolChanges.forEach(toolChange => {
             let listItem = document.createElement("li");
             listItem.innerHTML = `ID: <strong>${toolChange.tool}</strong> - 
