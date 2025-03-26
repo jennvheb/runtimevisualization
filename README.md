@@ -11,7 +11,7 @@ This  implements a real-time visualization system for sensor data streams in a m
     ```
     node server.js
     ```
-4. Go to: https://cpee.org/hub/server/Teaching.dir/Prak.dir/TUM-Prak-24-WS.dir/Jennifer%20Hebstreit.dir/Machining%20V2.xml/open?stage=development and click run under the Execution tab.
+4. Go to: https://cpee.org/hub/server/Teaching.dir/Prak.dir/TUM-Prak-24-WS.dir/Jennifer%20Hebstreit.dir/Machining%20V2.xml/open?stage=development and click run under the Execution tab to start a process instance of the data stream replay.
 
 - Optional: If you want to compare the main instance to another one (not possible in combined.html for visibility reasons) go to: https://cpee.org/hub/server/Teaching.dir/Prak.dir/TUM-Prak-24-WS.dir/Jennifer%20Hebstreit.dir/Machining%20V2%20Alternative.xml/open?stage=development and click on run under the Execution tab.
 5. Go to: https://lehre.bpm.in.tum.de/[your_directory]/runtimevisualization/index.html or https://lehre.bpm.in.tum.de/~ga84xed/prakws2425/index.html
