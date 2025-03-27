@@ -38,8 +38,8 @@ app.post('/', upload.any(), (req, res) => {
 
                         let relativeTimestamp = null;
 
-                        // if stream is related to MaxxTurn45, calculate relative time from first data point for MaxxTurn45
-                        if (id.startsWith('MaxxTurn45/')) {
+                        // if stream is related to MaxxTurn45/Axes/Power/Active/, calculate relative time from first data point for MaxxTurn45
+                        if (id.startsWith('MaxxTurn45/Axes/Power/Active/')) {
                             if (!instanceData[instance].firstTimestamp) {
                                 instanceData[instance].firstTimestamp = timestamp;
                             }
